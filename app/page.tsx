@@ -32,7 +32,7 @@ export default function Page() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <a 
-              href="/s/masjid-noor/dashboard" 
+              href="/s/masjid-noor/demo" 
               className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center"
             >
               🏫 Voir la démo
@@ -93,7 +93,7 @@ export default function Page() {
               Testez immédiatement la plateforme avec les données d'exemple du centre "Masjid An-Noor"
             </p>
             <a 
-              href="/s/masjid-noor/dashboard" 
+              href="/s/masjid-noor/demo" 
               className="inline-flex items-center bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
             >
               🚀 Accéder à la démo
