@@ -24,7 +24,10 @@ export default async function ClassesPage({params}:{params:{tenant:string}}) {
       }
     }),
     prisma.schoolYear.findMany({ where: { tenantId: tenant.id } }),
-    prisma.subject.findMany({ where: { tenantId: tenant.id } }),
+    prisma.subject.findMany({ 
+      where: { tenantId: tenant.id },
+      include: { schoolYear: true }
+    }),
     prisma.room.findMany({ where: { tenantId: tenant.id } })
   ]);
 
