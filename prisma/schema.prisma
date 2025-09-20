@@ -1,0 +1,254 @@
+generator client { provider = "prisma-client-js"; binaryTargets = ["native","debian-openssl-3.0.x"] }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+enum Role { SUPER_ADMIN SCHOOL_ADMIN STAFF PARENT STUDENT }
+enum AttendanceStatus { PRESENT ABSENT EXCUSED LATE }
+
+model Tenant {
+  id String @id @default(cuid())
+  slug String @unique
+  name String
+  timezone String @default("Europe/Paris")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users UserOnTenant[]
+  schoolYears SchoolYear[]
+  classes Class[]
+  subjects Subject[]
+  rooms Room[]
+}
+
+model User {
+  id String @id @default(cuid())
+  email String @unique
+  passwordHash String?
+  name String?
+  phone String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tenants UserOnTenant[]
+  guardians Guardian[]
+  students Student[]
+}
+
+model UserOnTenant {
+  id String @id @default(cuid())
+  userId String
+  tenantId String
+  role Role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  @@unique([userId, tenantId])
+  @@index([tenantId, role])
+}
+
+model Guardian {
+  id String @id @default(cuid())
+  userId String
+  tenantId String
+  user User @relation(fields: [userId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  children StudentGuardian[]
+  @@index([tenantId])
+}
+
+model Student {
+  id String @id @default(cuid())
+  tenantId String
+  userId String?
+  matricule String @unique
+  birthDate DateTime?
+  gender String?
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  user User? @relation(fields: [userId], references: [id])
+  guardians StudentGuardian[]
+  enrollments Enrollment[]
+  attendances Attendance[]
+  grades Grade[]
+  quranRecords QuranProgress[]
+  @@index([tenantId])
+}
+
+model StudentGuardian {
+  id String @id @default(cuid())
+  tenantId String
+  studentId String
+  guardianId String
+  relation String?
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  student Student @relation(fields: [studentId], references: [id])
+  guardian Guardian @relation(fields: [guardianId], references: [id])
+  @@unique([studentId, guardianId])
+  @@index([tenantId])
+}
+
+model SchoolYear {
+  id String @id @default(cuid())
+  tenantId String
+  name String
+  startDate DateTime
+  endDate DateTime
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  classes Class[]
+  subjects Subject[]
+  @@unique([tenantId, name])
+  @@index([tenantId, startDate, endDate])
+}
+
+model Class {
+  id String @id @default(cuid())
+  tenantId String
+  schoolYearId String
+  name String
+  roomId String?
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  schoolYear SchoolYear @relation(fields: [schoolYearId], references: [id])
+  room Room? @relation(fields: [roomId], references: [id])
+  enrollments Enrollment[]
+  sessions Session[]
+  @@unique([tenantId, schoolYearId, name])
+  @@index([tenantId])
+}
+
+model Room {
+  id String @id @default(cuid())
+  tenantId String
+  name String
+  capacity Int?
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  sessions Session[]
+  @@unique([tenantId, name])
+  @@index([tenantId])
+}
+
+model Subject {
+  id String @id @default(cuid())
+  tenantId String
+  schoolYearId String
+  name String
+  category String?
+  coefficient Int @default(1)
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  schoolYear SchoolYear @relation(fields: [schoolYearId], references: [id])
+  sessions Session[]
+  gradeItems GradeItem[]
+  @@unique([tenantId, schoolYearId, name])
+  @@index([tenantId])
+}
+
+model Enrollment {
+  id String @id @default(cuid())
+  tenantId String
+  classId String
+  studentId String
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  class Class @relation(fields: [classId], references: [id])
+  student Student @relation(fields: [studentId], references: [id])
+  @@unique([tenantId, classId, studentId])
+  @@index([tenantId])
+}
+
+model Session {
+  id String @id @default(cuid())
+  tenantId String
+  classId String
+  subjectId String
+  roomId String?
+  weekday Int
+  startsAt String
+  endsAt String
+  notes String?
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  class Class @relation(fields: [classId], references: [id])
+  subject Subject @relation(fields: [subjectId], references: [id])
+  room Room? @relation(fields: [roomId], references: [id])
+  attendances Attendance[]
+  @@index([tenantId, classId, subjectId, weekday])
+}
+
+model Attendance {
+  id String @id @default(cuid())
+  tenantId String
+  sessionId String
+  studentId String
+  date DateTime
+  status AttendanceStatus
+  excuseUrl String?
+  comment String?
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  session Session @relation(fields: [sessionId], references: [id])
+  student Student @relation(fields: [studentId], references: [id])
+  @@unique([tenantId, sessionId, studentId, date])
+  @@index([tenantId, date])
+}
+
+model GradeItem {
+  id String @id @default(cuid())
+  tenantId String
+  subjectId String
+  title String
+  maxScore Float @default(20)
+  weight Float @default(1)
+  date DateTime
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  subject Subject @relation(fields: [subjectId], references: [id])
+  grades Grade[]
+  @@index([tenantId, subjectId, date])
+}
+
+model Grade {
+  id String @id @default(cuid())
+  tenantId String
+  gradeItemId String
+  studentId String
+  score Float
+  comment String?
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  gradeItem GradeItem @relation(fields: [gradeItemId], references: [id])
+  student Student @relation(fields: [studentId], references: [id])
+  @@unique([tenantId, gradeItemId, studentId])
+  @@index([tenantId])
+}
+
+model Homework {
+  id String @id @default(cuid())
+  tenantId String
+  classId String
+  subjectId String
+  title String
+  content String
+  dueDate DateTime
+  attachments Json?
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  class Class @relation(fields: [classId], references: [id])
+  subject Subject @relation(fields: [subjectId], references: [id])
+  @@index([tenantId, dueDate])
+}
+
+model Announcement {
+  id String @id @default(cuid())
+  tenantId String
+  title String
+  content String
+  audience String
+  createdAt DateTime @default(now())
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  @@index([tenantId, createdAt])
+}
+
+model QuranProgress {
+  id String @id @default(cuid())
+  tenantId String
+  studentId String
+  surah Int
+  fromAyah Int
+  toAyah Int
+  kind String
+  date DateTime @default(now())
+  comment String?
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  student Student @relation(fields: [studentId], references: [id])
+  @@index([tenantId, studentId, date])
+}

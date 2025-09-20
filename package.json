@@ -1,0 +1,31 @@
+{
+  "name": "projet-notes",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "prisma:studio": "prisma studio",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "node prisma/seed.mjs",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "next": "14",
+    "react": "18",
+    "react-dom": "18",
+    "@prisma/client": "5.20.0"
+  },
+  "devDependencies": {
+    "prisma": "5.20.0",
+    "typescript": "^5",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8",
+    "autoprefixer": "^10",
+    "vitest": "^1.0.0"
+  },
+  "packageManager": "pnpm@8.0.0"
+}

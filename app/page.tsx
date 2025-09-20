@@ -1,0 +1,1 @@
+export default function Page(){return(<main className="max-w-3xl mx-auto p-8"><h1 className="text-3xl font-bold">projet-notes</h1><p className="mt-4">Plateforme multi-tenant (écoles d'abord).</p><p className="opacity-70">Voir /s/masjid-noor/dashboard après seed.</p></main>)}
