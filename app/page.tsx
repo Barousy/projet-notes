@@ -31,18 +31,18 @@ export default function Page() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Link 
+            <a 
               href="/s/masjid-noor/dashboard" 
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center"
             >
               🏫 Voir la démo
-            </Link>
-            <Link 
+            </a>
+            <a 
               href="#features" 
-              className="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors font-medium"
+              className="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors font-medium text-center"
             >
               Découvrir les fonctionnalités
-            </Link>
+            </a>
           </div>
         </div>
 
@@ -92,12 +92,12 @@ export default function Page() {
             <p className="text-gray-600 mb-6">
               Testez immédiatement la plateforme avec les données d'exemple du centre "Masjid An-Noor"
             </p>
-            <Link 
+            <a 
               href="/s/masjid-noor/dashboard" 
               className="inline-flex items-center bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
             >
               🚀 Accéder à la démo
-            </Link>
+            </a>
           </div>
         </div>
       </main>
