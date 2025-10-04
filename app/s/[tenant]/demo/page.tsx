@@ -8,14 +8,14 @@ export default function DemoPage({params}:{params:{tenant:string}}) {
   }
   // Données de démo enrichies et réalistes
   const demoData = {
-    tenantName: "École Coranique Al-Huda",
+    tenantName: "Masjid An-Noor",
     description: "Centre d'enseignement islamique moderne",
     classes: [
-      { id: "1", name: "Groupe Coran Débutants", students: 18, level: "Niveau 1", teacher: "Sheikh Ahmed" },
-      { id: "2", name: "Groupe Coran Intermédiaires", students: 15, level: "Niveau 2", teacher: "Sheikh Youssef" },
-      { id: "3", name: "Groupe Coran Avancés", students: 12, level: "Niveau 3", teacher: "Sheikh Mohamed" },
-      { id: "4", name: "Groupe Arabe", students: 22, level: "Tous niveaux", teacher: "Ustaz Fatima" },
-      { id: "5", name: "Groupe Tafsir", students: 8, level: "Avancé", teacher: "Sheikh Ibrahim" }
+      { id: "1", name: "Groupe Coran Débutants", students: 18, level: "Niveau 1", teacher: "Sheikh Ahmed Al-Mansouri" },
+      { id: "2", name: "Groupe Coran Intermédiaires", students: 15, level: "Niveau 2", teacher: "Sheikh Youssef Al-Hassani" },
+      { id: "3", name: "Groupe Coran Avancés", students: 12, level: "Niveau 3", teacher: "Sheikh Mohamed Al-Qurashi" },
+      { id: "4", name: "Groupe Arabe", students: 22, level: "Tous niveaux", teacher: "Ustaz Fatima Al-Zahra" },
+      { id: "5", name: "Groupe Tafsir", students: 8, level: "Avancé", teacher: "Sheikh Ibrahim Al-Mahdi" }
     ],
     students: 75,
     subjects: 5,

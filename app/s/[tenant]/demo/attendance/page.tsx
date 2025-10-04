@@ -117,7 +117,7 @@ export default function DemoAttendancePage({params}:{params:{tenant:string}}) {
   };
 
   return (
-    <Layout tenantName="École Coranique Al-Huda" tenantSlug={params.tenant}>
+    <Layout tenantName="Masjid An-Noor" tenantSlug={params.tenant}>
       <div className="space-y-8">
         {/* Header avec navigation */}
         <div className="flex items-center justify-between">
