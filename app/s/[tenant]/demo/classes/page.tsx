@@ -2,8 +2,8 @@ import Layout from "@/components/Layout";
 import Link from "next/link";
 
 export default function DemoClassesPage({params}:{params:{tenant:string}}) {
-  // Vérifier si c'est le mode démo
-  if (params.tenant !== 'demo') {
+  // Mode démo pour masjid-noor
+  if (params.tenant !== 'masjid-noor') {
     return <div className="p-6">Tenant introuvable.</div>;
   }
   // Données de démo réalistes pour les classes
