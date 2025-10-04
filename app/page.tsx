@@ -32,10 +32,10 @@ export default function Page() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <a 
-              href="/s/masjid-noor/demo" 
+              href="/s/demo" 
               className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center"
             >
-              🏫 Voir la démo
+              🎯 Voir la démo interactive
             </a>
             <a 
               href="#features" 
@@ -90,13 +90,13 @@ export default function Page() {
           <div className="text-center">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">🎯 Démo disponible</h2>
             <p className="text-gray-600 mb-6">
-              Testez immédiatement la plateforme avec les données d'exemple du centre "Masjid An-Noor"
+              Testez immédiatement la plateforme avec des données réalistes et une interface complète
             </p>
             <a 
-              href="/s/masjid-noor/demo" 
+              href="/s/demo" 
               className="inline-flex items-center bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
             >
-              🚀 Accéder à la démo
+              🚀 Accéder à la démo interactive
             </a>
           </div>
         </div>
