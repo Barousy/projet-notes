@@ -2,6 +2,10 @@ import Layout from "@/components/Layout";
 import Link from "next/link";
 
 export default function DemoPage({params}:{params:{tenant:string}}) {
+  // Vérifier si c'est le mode démo
+  if (params.tenant !== 'demo') {
+    return <div className="p-6">Tenant introuvable.</div>;
+  }
   // Données de démo enrichies et réalistes
   const demoData = {
     tenantName: "École Coranique Al-Huda",
