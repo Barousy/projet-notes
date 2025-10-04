@@ -25,19 +25,19 @@ export default function Header({ tenantName, tenantSlug }: HeaderProps) {
                 <Link href={`/s/${tenantSlug}/dashboard`} className="text-gray-600 hover:text-gray-900">
                   Dashboard
                 </Link>
-                <Link href={`/s/${tenantSlug}/students`} className="text-gray-600 hover:text-gray-900">
+                <Link href={`/s/${tenantSlug}/demo/students`} className="text-gray-600 hover:text-gray-900">
                   Étudiants
                 </Link>
-                <Link href={`/s/${tenantSlug}/classes`} className="text-gray-600 hover:text-gray-900">
+                <Link href={`/s/${tenantSlug}/demo/classes`} className="text-gray-600 hover:text-gray-900">
                   Classes
                 </Link>
-                <Link href={`/s/${tenantSlug}/attendance`} className="text-gray-600 hover:text-gray-900">
+                <Link href={`/s/${tenantSlug}/demo/attendance`} className="text-gray-600 hover:text-gray-900">
                   Présences
                 </Link>
-                <Link href={`/s/${tenantSlug}/grades`} className="text-gray-600 hover:text-gray-900">
+                <Link href={`/s/${tenantSlug}/demo/grades`} className="text-gray-600 hover:text-gray-900">
                   Notes
                 </Link>
-                <Link href={`/s/${tenantSlug}/quran`} className="text-gray-600 hover:text-gray-900">
+                <Link href={`/s/${tenantSlug}/demo/quran`} className="text-gray-600 hover:text-gray-900">
                   Coran
                 </Link>
                 <Link href={`/s/${tenantSlug}/admin`} className="text-purple-600 hover:text-purple-700 font-medium">
