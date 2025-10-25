@@ -102,7 +102,7 @@ export default function NewTenantPage() {
                     href={tenantUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    topics="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors inline-block"
+                    className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors inline-block"
                   >
                     🔗 Accéder à {formData.name} →
                   </a>
