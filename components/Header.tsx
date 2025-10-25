@@ -27,30 +27,36 @@ export default function Header({ tenantName, tenantSlug }: HeaderProps) {
             )}
           </div>
           
-          <nav className="hidden md:flex space-x-8">
-            {tenantSlug && (
-              <>
-                <Link href={`/s/${tenantSlug}/dashboard`} className="text-gray-600 hover:text-gray-900">
-                  Dashboard
-                </Link>
-                <Link href={`/s/${tenantSlug}/demo/students`} className="text-gray-600 hover:text-gray-900">
-                  Étudiants
-                </Link>
-                <Link href={`/s/${tenantSlug}/demo/classes`} className="text-gray-600 hover:text-gray-900">
-                  Classes
-                </Link>
-                <Link href={`/s/${tenantSlug}/demo/grades`} className="text-gray-600 hover:text-gray-900">
-                  Notes
-                </Link>
-                <Link href={`/s/${tenantSlug}/demo/quran`} className="text-gray-600 hover:text-gray-900">
-                  Coran
-                </Link>
-                <Link href={`/s/${tenantSlug}/admin`} className="text-purple-600 hover:text-purple-700 font-medium">
-                  Admin
-                </Link>
-              </>
-            )}
-          </nav>
+                 <nav className="hidden md:flex space-x-8">
+                   {tenantSlug && (
+                     <>
+                       <Link href={`/s/${tenantSlug}/dashboard`} className="text-gray-600 hover:text-gray-900">
+                         Dashboard
+                       </Link>
+                       <Link href={`/s/${tenantSlug}/students`} className="text-gray-600 hover:text-gray-900">
+                         Étudiants
+                       </Link>
+                       <Link href={`/s/${tenantSlug}/classes`} className="text-gray-600 hover:text-gray-900">
+                         Classes
+                       </Link>
+                       <Link href={`/s/${tenantSlug}/teachers`} className="text-gray-600 hover:text-gray-900">
+                         Professeurs
+                       </Link>
+                       <Link href={`/s/${tenantSlug}/schedule`} className="text-gray-600 hover:text-gray-900">
+                         Emploi du temps
+                       </Link>
+                       <Link href={`/s/${tenantSlug}/grades`} className="text-gray-600 hover:text-gray-900">
+                         Notes
+                       </Link>
+                       <Link href={`/s/${tenantSlug}/quran`} className="text-gray-600 hover:text-gray-900">
+                         Coran
+                       </Link>
+                       <Link href={`/s/${tenantSlug}/admin`} className="text-purple-600 hover:text-purple-700 font-medium">
+                         Admin
+                       </Link>
+                     </>
+                   )}
+                 </nav>
           
           <div className="flex items-center space-x-4">
             {tenantSlug ? (
