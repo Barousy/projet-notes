@@ -47,6 +47,9 @@ export default function Header({ tenantName, tenantSlug }: HeaderProps) {
           <div className="flex items-center space-x-4">
             {tenantSlug ? (
               <>
+                <Link href="/admin/tenants" className="text-sm text-purple-600 hover:text-purple-700 font-medium">
+                  Toutes les entités
+                </Link>
                 <Link href="/admin/new-tenant" className="text-sm text-purple-600 hover:text-purple-700 font-medium">
                   + Nouvelle entité
                 </Link>
@@ -56,6 +59,9 @@ export default function Header({ tenantName, tenantSlug }: HeaderProps) {
               </>
             ) : (
               <>
+                <Link href="/admin/tenants" className="text-sm text-purple-600 hover:text-purple-700 font-medium">
+                  Entités
+                </Link>
                 <Link href="/admin/new-tenant" className="text-sm text-purple-600 hover:text-purple-700 font-medium">
                   Créer une entité
                 </Link>
