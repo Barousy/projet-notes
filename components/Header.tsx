@@ -46,13 +46,23 @@ export default function Header({ tenantName, tenantSlug }: HeaderProps) {
           
           <div className="flex items-center space-x-4">
             {tenantSlug ? (
-              <span className="text-sm text-gray-500">
-                Connecté en tant qu'Admin
-              </span>
+              <>
+                <Link href="/admin/new-tenant" className="text-sm text-purple-600 hover:text-purple-700 font-medium">
+                  + Nouvelle entité
+                </Link>
+                <span className="text-sm text-gray-500">
+                  Connecté en tant qu'Admin
+                </span>
+              </>
             ) : (
-              <Link href="/login" className="text-blue-600 hover:text-blue-700">
-                Connexion
-              </Link>
+              <>
+                <Link href="/admin/new-tenant" className="text-sm text-purple-600 hover:text-purple-700 font-medium">
+                  Créer une entité
+                </Link>
+                <Link href="/login" className="text-blue-600 hover:text-blue-700">
+                  Connexion
+                </Link>
+              </>
             )}
           </div>
         </div>
