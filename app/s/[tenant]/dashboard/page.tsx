@@ -207,19 +207,19 @@ export default async function Dashboard({params}:{params:{tenant:string}}) {
               Actions rapides
             </h3>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <a href={`/s/${tenant.slug}/students`} className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
+              <a href={`/s/${tenant.slug}/demo/students`} className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
                 <span className="text-2xl mr-3">👥</span>
                 <span className="font-medium">Gérer les étudiants</span>
               </a>
-              <a href={`/s/${tenant.slug}/classes`} className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
+              <a href={`/s/${tenant.slug}/demo/classes`} className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
                 <span className="text-2xl mr-3">🏫</span>
                 <span className="font-medium">Gérer les classes</span>
               </a>
-              <a href={`/s/${tenant.slug}/attendance`} className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
-                <span className="text-2xl mr-3">✅</span>
-                <span className="font-medium">Prendre les présences</span>
+              <a href={`/s/${tenant.slug}/demo/classes/resources`} className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
+                <span className="text-2xl mr-3">📅</span>
+                <span className="font-medium">Emploi du temps</span>
               </a>
-              <a href={`/s/${tenant.slug}/quran`} className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
+              <a href={`/s/${tenant.slug}/demo/quran`} className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
                 <span className="text-2xl mr-3">📖</span>
                 <span className="font-medium">Suivi Coran</span>
               </a>

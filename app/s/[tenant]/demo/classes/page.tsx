@@ -107,6 +107,12 @@ export default function DemoClassesPage({params}:{params:{tenant:string}}) {
             <p className="mt-2 text-gray-600">Organisez et gérez vos classes avec des données réalistes</p>
           </div>
           <div className="flex space-x-3">
+            <Link 
+              href={`/s/${params.tenant}/demo/classes/resources`}
+              className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+            >
+              📅 Emploi du temps
+            </Link>
             <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
               + Créer une classe
             </button>

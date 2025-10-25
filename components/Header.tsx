@@ -31,9 +31,6 @@ export default function Header({ tenantName, tenantSlug }: HeaderProps) {
                 <Link href={`/s/${tenantSlug}/demo/classes`} className="text-gray-600 hover:text-gray-900">
                   Classes
                 </Link>
-                <Link href={`/s/${tenantSlug}/demo/attendance`} className="text-gray-600 hover:text-gray-900">
-                  Présences
-                </Link>
                 <Link href={`/s/${tenantSlug}/demo/grades`} className="text-gray-600 hover:text-gray-900">
                   Notes
                 </Link>
