@@ -59,6 +59,12 @@ export default async function Page() {
             >
               Découvrir les fonctionnalités
             </a>
+            <a 
+              href="#entities" 
+              className="border border-purple-600 text-purple-600 px-8 py-3 rounded-lg hover:bg-purple-50 transition-colors font-medium text-center"
+            >
+              🏢 Accéder aux entités
+            </a>
           </div>
         </div>
 
@@ -119,7 +125,7 @@ export default async function Page() {
 
         {/* Entités créées */}
         {tenants.length > 0 && (
-          <div className="mt-16 bg-white rounded-lg shadow-md p-8">
+          <div id="entities" className="mt-16 bg-white rounded-lg shadow-md p-8">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-2">🏢 Entités actives</h2>

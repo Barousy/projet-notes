@@ -10,13 +10,21 @@ export default function Header({ tenantName, tenantSlug }: HeaderProps) {
     <header className="bg-white shadow-sm border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
+          <div className="flex items-center space-x-4">
             <Link href={tenantSlug ? `/s/${tenantSlug}/dashboard` : "/"} className="flex items-center">
               <div className="text-2xl font-bold text-blue-600">📚</div>
               <span className="ml-2 text-xl font-semibold text-gray-900">
                 {tenantName ? tenantName : "projet-notes"}
               </span>
             </Link>
+            {tenantSlug && (
+              <Link 
+                href="/" 
+                className="text-sm text-gray-600 hover:text-gray-900 font-medium px-3 py-1 hover:bg-gray-100 rounded transition-colors"
+              >
+                ← Accueil
+              </Link>
+            )}
           </div>
           
           <nav className="hidden md:flex space-x-8">
