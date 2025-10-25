@@ -4,8 +4,34 @@ import { useState } from "react";
 import AddStudentForm from "./AddStudentForm";
 import type { Student } from "@prisma/client";
 
+interface StudentWithRelations extends Student {
+  user: {
+    id: string;
+    name: string | null;
+    email: string;
+    phone: string | null;
+  } | null;
+  guardians?: Array<{
+    id: string;
+    relation: string | null;
+    guardian: {
+      id: string;
+      user: {
+        name: string | null;
+      } | null;
+    };
+  }>;
+  enrollments?: Array<{
+    id: string;
+    class: {
+      id: string;
+      name: string;
+    };
+  }>;
+}
+
 interface StudentsPageClientProps {
-  initialStudents: Student[];
+  initialStudents: StudentWithRelations[];
   tenantSlug: string;
 }
 

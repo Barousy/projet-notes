@@ -4,8 +4,27 @@ import { useState } from "react";
 import AddClassForm from "./AddClassForm";
 import type { Class, SchoolYear, Subject, Room } from "@prisma/client";
 
+interface ClassWithEnrollments extends Class {
+  enrollments?: Array<{
+    id: string;
+    student: {
+      id: string;
+      user: {
+        name: string | null;
+      } | null;
+      matricule: string;
+    };
+  }>;
+  schoolYear?: {
+    name: string;
+  };
+  room?: {
+    name: string;
+  } | null;
+}
+
 interface ClassesPageClientProps {
-  initialClasses: Class[];
+  initialClasses: ClassWithEnrollments[];
   schoolYears: SchoolYear[];
   subjects: Subject[];
   rooms: Room[];
