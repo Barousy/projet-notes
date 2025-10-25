@@ -1,6 +1,22 @@
 import Link from "next/link";
+import { prisma } from "@/lib/db";
 
-export default function Page() {
+export default async function Page() {
+  // Récupérer toutes les entités
+  const tenants = await prisma.tenant.findMany({
+    include: {
+      _count: {
+        select: {
+          students: true,
+          classes: true
+        }
+      }
+    },
+    orderBy: {
+      createdAt: 'desc'
+    },
+    take: 6 // Limiter à 6 entités récentes
+  });
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
@@ -100,6 +116,89 @@ export default function Page() {
             </a>
           </div>
         </div>
+
+        {/* Entités créées */}
+        {tenants.length > 0 && (
+          <div className="mt-16 bg-white rounded-lg shadow-md p-8">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">🏢 Entités actives</h2>
+                <p className="text-gray-600">
+                  Accédez directement aux entités créées sur la plateforme
+                </p>
+              </div>
+              <Link
+                href="/admin/tenants"
+                className="text-purple-600 hover:text-purple-700 font-medium"
+              >
+                Voir toutes →
+              </Link>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {tenants.map((tenant) => (
+                <Link
+                  key={tenant.id}
+                  href={`/s/${tenant.slug}/dashboard`}
+                  className="border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:border-purple-300 transition-all duration-200 bg-gradient-to-br from-white to-gray-50"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                        {tenant.name}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        {tenant.slug}
+                      </p>
+                    </div>
+                    <div className="text-2xl">🏢</div>
+                  </div>
+
+                  {/* Statistiques */}
+                  <div className="grid grid-cols-2 gap-3 mb-4">
+                    <div className="text-center bg-blue-50 rounded-lg p-3">
+                      <div className="text-2xl font-bold text-blue-600">
+                        {tenant._count.students}
+                      </div>
+                      <div className="text-xs text-gray-600">Étudiants</div>
+                    </div>
+                    <div className="text-center bg-green-50 rounded-lg p-3">
+                      <div className="text-2xl font-bold text-green-600">
+                        {tenant._count.classes}
+                      </div>
+                      <div className="text-xs text-gray-600">Classes</div>
+                    </div>
+                  </div>
+
+                  {/* Badge démo */}
+                  {tenant.slug === 'masjid-noor' && (
+                    <div className="mb-3">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                        🎯 Mode Démo
+                      </span>
+                    </div>
+                  )}
+
+                  {/* CTA */}
+                  <div className="bg-purple-50 text-purple-700 px-4 py-2 rounded-lg text-center text-sm font-medium hover:bg-purple-100 transition-colors">
+                    Accéder →
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {tenants.length >= 6 && (
+              <div className="mt-6 text-center">
+                <Link
+                  href="/admin/tenants"
+                  className="text-purple-600 hover:text-purple-700 font-medium"
+                >
+                  Voir toutes les entités ({tenants.length}+) →
+                </Link>
+              </div>
+            )}
+          </div>
+        )}
       </main>
 
       {/* Footer */}
