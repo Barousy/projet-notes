@@ -15,11 +15,36 @@ export default async function Dashboard({params}:{params:{tenant:string}}) {
     prisma.subject.findMany({ where: { tenantId: tenant.id } })
   ]);
 
-  // Utiliser les vraies données ou afficher un état vide
-  const activeStudents = students.length;
-  const totalClasses = classes.length;
+  // Vérifier si c'est l'entité démo (masjid-noor) ou une vraie entité
+  const isDemoTenant = params.tenant === 'masjid-noor';
   
-  // Utiliser les données réelles s'il y en a, sinon données vides
+  // Pour masjid-noor: données démo enrichies
+  // Pour les autres: vraies données de la base
+  const demoData = {
+    classes: [
+      { id: "1", name: "Groupe Coran Débutants", students: 18, level: "Niveau 1", teacher: "Sheikh Ahmed Al-Mansouri" },
+      { id: "2", name: "Groupe Coran Intermédiaires", students: 15, level: "Niveau 2", teacher: "Sheikh Youssef Al-Hassani" },
+      { id: "3", name: "Groupe Coran Avancés", students: 12, level: "Niveau 3", teacher: "Sheikh Mohamed Al-Qurashi" },
+      { id: "4", name: "Groupe Arabe", students: 22, level: "Tous niveaux", teacher: "Ustaz Fatima Al-Zahra" },
+      { id: "5", name: "Groupe Tafsir", students: 8, level: "Avancé", teacher: "Sheikh Ibrahim Al-Mahdi" }
+    ],
+    recentActivities: [
+      { type: "quran", student: "Amina Al-Hassan", action: "a terminé la sourate Al-Baqarah", time: "Il y a 2h" },
+      { type: "attendance", student: "Omar Ben Ali", action: "était présent en classe", time: "Il y a 3h" },
+      { type: "grade", student: "Fatima Zahra", action: "a obtenu 18/20 en Arabe", time: "Il y a 1j" },
+      { type: "enrollment", student: "Hassan Al-Mahdi", action: "s'est inscrit en Tafsir", time: "Il y a 2j" }
+    ],
+    stats: {
+      attendanceRate: 94.5,
+      averageGrade: 16.2,
+      quranProgress: 67.8,
+      activeStudents: 68
+    }
+  };
+  
+  // Utiliser les vraies données ou afficher un état vide
+  const activeStudents = isDemoTenant ? demoData.stats.activeStudents : students.length;
+  const totalClasses = isDemoTenant ? demoData.classes.length : classes.length;
   const hasData = classes.length > 0 || students.length > 0;
 
   return (
@@ -110,8 +135,12 @@ export default async function Dashboard({params}:{params:{tenant:string}}) {
                 <div className="ml-4 w-0 flex-1">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 truncate">Taux de présence</dt>
-                    <dd className="text-2xl font-bold text-gray-900">-</dd>
-                    <dd className="text-xs text-gray-500">À venir</dd>
+                    <dd className="text-2xl font-bold text-gray-900">
+                      {isDemoTenant ? `${demoData.stats.attendanceRate}%` : '-'}
+                    </dd>
+                    <dd className="text-xs text-gray-500">
+                      {isDemoTenant ? '+2.1% vs mois dernier' : 'À venir'}
+                    </dd>
                   </dl>
                 </div>
               </div>
@@ -129,8 +158,12 @@ export default async function Dashboard({params}:{params:{tenant:string}}) {
                 <div className="ml-4 w-0 flex-1">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 truncate">Progression Coran</dt>
-                    <dd className="text-2xl font-bold text-gray-900">-</dd>
-                    <dd className="text-xs text-gray-500">À venir</dd>
+                    <dd className="text-2xl font-bold text-gray-900">
+                      {isDemoTenant ? `${demoData.stats.quranProgress}%` : '-'}
+                    </dd>
+                    <dd className="text-xs text-gray-500">
+                      {isDemoTenant ? '+5.2% cette semaine' : 'À venir'}
+                    </dd>
                   </dl>
                 </div>
               </div>
@@ -138,13 +171,53 @@ export default async function Dashboard({params}:{params:{tenant:string}}) {
           </div>
         </div>
 
-        {/* Classes réelles */}
+        {/* Classes */}
         <div className="bg-white shadow-lg rounded-lg">
           <div className="px-6 py-6">
             <h3 className="text-xl font-semibold text-gray-900 mb-6">
               Classes actives ({totalClasses})
             </h3>
-            {classes.length > 0 ? (
+            {isDemoTenant ? (
+              // Affichage démo pour masjid-noor
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {demoData.classes.map((classe) => (
+                  <div key={classe.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md hover:border-blue-300 transition-all duration-200 bg-gradient-to-br from-white to-gray-50">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h4 className="font-semibold text-gray-900 text-lg">{classe.name}</h4>
+                        <p className="text-sm text-gray-600 mt-1">{classe.level}</p>
+                      </div>
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        {classe.students} étudiants
+                      </span>
+                    </div>
+                    
+                    <div className="space-y-2 text-sm text-gray-600">
+                      <div className="flex items-center">
+                        <span className="font-medium mr-2">👨‍🏫</span>
+                        <span>{classe.teacher}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <span className="font-medium mr-2">📊</span>
+                        <span>Progression: {Math.floor(Math.random() * 40 + 60)}%</span>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                      <div className="flex space-x-2">
+                        <button className="flex-1 bg-blue-50 text-blue-700 px-3 py-2 rounded-lg text-sm hover:bg-blue-100 transition-colors">
+                          Voir détails
+                        </button>
+                        <button className="flex-1 bg-gray-50 text-gray-700 px-3 py-2 rounded-lg text-sm hover:bg-gray-100 transition-colors">
+                          Présences
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : classes.length > 0 ? (
+              // Affichage réel pour vraies entités
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {classes.map((classe) => (
                   <div key={classe.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md hover:border-blue-300 transition-all duration-200 bg-gradient-to-br from-white to-gray-50">
@@ -177,6 +250,7 @@ export default async function Dashboard({params}:{params:{tenant:string}}) {
                 ))}
               </div>
             ) : (
+              // État vide pour nouvelles entités
               <div className="text-center py-12">
                 <div className="text-6xl mb-4">🏫</div>
                 <h3 className="text-lg font-medium text-gray-900 mb-2">Aucune classe</h3>
