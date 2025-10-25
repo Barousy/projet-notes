@@ -23,10 +23,16 @@ interface ClassWithEnrollments extends Class {
   } | null;
 }
 
+interface SubjectWithSchoolYear extends Subject {
+  schoolYear?: {
+    name: string;
+  };
+}
+
 interface ClassesPageClientProps {
   initialClasses: ClassWithEnrollments[];
   schoolYears: SchoolYear[];
-  subjects: Subject[];
+  subjects: SubjectWithSchoolYear[];
   rooms: Room[];
   tenantSlug: string;
 }
