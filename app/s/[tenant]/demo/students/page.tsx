@@ -119,12 +119,6 @@ export default function DemoStudentsPage({params}:{params:{tenant:string}}) {
             <p className="mt-2 text-gray-600">Explorez la gestion complète des étudiants avec des données réalistes</p>
           </div>
           <div className="flex space-x-3">
-            <Link 
-              href={`/s/${params.tenant}/demo/attendance`}
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
-            >
-              ✅ Présences
-            </Link>
             <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
               + Ajouter un étudiant
             </button>

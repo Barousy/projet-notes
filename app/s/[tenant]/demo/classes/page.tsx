@@ -113,6 +113,12 @@ export default function DemoClassesPage({params}:{params:{tenant:string}}) {
             >
               📅 Emploi du temps
             </Link>
+            <Link 
+              href={`/s/${params.tenant}/demo/attendance`}
+              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+            >
+              ✅ Présences
+            </Link>
             <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
               + Créer une classe
             </button>
