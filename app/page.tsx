@@ -124,8 +124,7 @@ export default async function Page() {
         </div>
 
         {/* Entités créées */}
-        {tenants.length > 0 && (
-          <div id="entities" className="mt-16 bg-white rounded-lg shadow-md p-8">
+        <div id="entities" className="mt-16 bg-white rounded-lg shadow-md p-8">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-2">🏢 Entités actives</h2>
@@ -133,16 +132,25 @@ export default async function Page() {
                   Accédez directement aux entités créées sur la plateforme
                 </p>
               </div>
-              <Link
-                href="/admin/tenants"
-                className="text-purple-600 hover:text-purple-700 font-medium"
-              >
-                Voir toutes →
-              </Link>
+              <div className="flex items-center space-x-4">
+                <Link
+                  href="/admin/new-tenant"
+                  className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium text-sm"
+                >
+                  ➕ Créer une entité
+                </Link>
+                <Link
+                  href="/admin/tenants"
+                  className="text-purple-600 hover:text-purple-700 font-medium"
+                >
+                  Voir toutes →
+                </Link>
+              </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tenants.map((tenant) => (
+            {tenants.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {tenants.map((tenant) => (
                 <Link
                   key={tenant.id}
                   href={`/s/${tenant.slug}/dashboard`}
@@ -190,8 +198,23 @@ export default async function Page() {
                     Accéder →
                   </div>
                 </Link>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <div className="text-6xl mb-4">🏢</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Aucune entité créée</h3>
+                <p className="text-gray-600 mb-6">
+                  Créez votre première entité pour commencer à utiliser la plateforme
+                </p>
+                <Link
+                  href="/admin/new-tenant"
+                  className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium inline-block"
+                >
+                  ➕ Créer ma première entité
+                </Link>
+              </div>
+            )}
 
             {tenants.length >= 6 && (
               <div className="mt-6 text-center">
@@ -204,7 +227,6 @@ export default async function Page() {
               </div>
             )}
           </div>
-        )}
       </main>
 
       {/* Footer */}
